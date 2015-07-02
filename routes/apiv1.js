@@ -1,6 +1,7 @@
 var express = require('express');
 var Firebase = require('firebase');
 var router = express.Router();
+var fbRef = new Firebase('https://treyhuffine-sample-apps.firebaseio.com/landmarks-app/locations');
 
 var fakeData = [
   { name: 'location1', description: 'Location 1', year: 1999 },
@@ -13,7 +14,8 @@ router.get('/locations', function(req, res, next) {
   res.json( { locations: fakeData } );
 });
 router.post('/locations', function(req, res, next) {
-  res.json( fakeData[0] );
+  fbRef.push(req.body);
+  res.json(req.body);
 });
 
 module.exports = router;
